@@ -15,12 +15,11 @@ namespace api.Repository
         {
             _context = context;
         }
-        public async Task<Stock> CreateAsync(CreateStockRequestDto stockDto)
+        public async Task<Stock> CreateAsync(Stock stock)
         {
-            var newStock = stockDto.ToStockFromCreateDto();
-            await _context.Stocks.AddAsync(newStock);
+            await _context.Stocks.AddAsync(stock);
             await _context.SaveChangesAsync();
-            return newStock;
+            return stock;
         }
 
         public async Task<Stock?> DeleteAsync(int id)

@@ -26,6 +26,7 @@ builder.Services.AddScoped<IStockRepository, StockRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IPortfolioRepository, PortfolioRepository>();
+builder.Services.AddHttpClient<IFMPService, FMPService>();
 
 builder.Services.AddDbContext<AppDbContext>(
     options => options.UseNpgsql(builder.Configuration.GetConnectionString("DeffaultConnection"))
@@ -105,6 +106,13 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(options => options
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .AllowCredentials() 
+    .WithOrigins("https://localhost:3000")
+    .SetIsOriginAllowed(origin => true));
 
 app.UseAuthorization();
 
