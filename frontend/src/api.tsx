@@ -1,5 +1,5 @@
 import axios from "axios"
-import { CompanyBalanceSheet, CompanyCashFlow, CompanyIncomeStatement, CompanyKeyMetrics, CompanyProfile, CompanySearch, CompanyTenK } from "./company"
+import { CompanyBalanceSheet, CompanyCashFlow, CompanyHistoricalDividend, CompanyIncomeStatement, CompanyKeyMetrics, CompanyProfile, CompanySearch, CompanyTenK } from "./company"
 
 interface SearchResponce {
     data: CompanySearch[]
@@ -80,7 +80,7 @@ export const getCashFlow = async (query: string) => {
 export const getTenK = async (query: string) => {
     try {
         const data = await axios.get<CompanyTenK[]>(
-            `https://financialmodelingprep.com/api/v3/sec_filings/${query}?type=10-k&page=0&apikey=NE4Tix5V5iOgI3ONEwY6arfL3lsx8gI6`
+            `https://financialmodelingprep.com/api/v3/sec_filings/${query}?type=10-k&page=0&apikey=${process.env.REACT_APP_API_KEY}`
         )
         return data
     } catch (error: any) {
@@ -88,3 +88,13 @@ export const getTenK = async (query: string) => {
     }
 }
 
+export const getHistoricalDividend = async (query: string) => {
+    try {
+      const data = await axios.get<CompanyHistoricalDividend>(
+        `https://financialmodelingprep.com/api/v3/historical-price-full/stock_dividend/${query}?apikey=${process.env.REACT_APP_API_KEY}`
+      );
+      return data;
+    } catch (error: any) {
+      console.log("error message: ", error.message);
+    }
+  };

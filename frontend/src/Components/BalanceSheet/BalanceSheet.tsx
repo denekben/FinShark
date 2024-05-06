@@ -6,7 +6,7 @@ import RatioList from '../RatioList/RatioList';
 import Spinner from '../Spinner/Spinner';
 import {
     formatLargeMonetaryNumber,
-  } from "../Helpers/NumberFormatting";
+  } from "../../Helpers/NumberFormatting";
 
 type Props = {}
 
